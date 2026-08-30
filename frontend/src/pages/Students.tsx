@@ -16,9 +16,10 @@ import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { EmptyState } from '../components/ui/EmptyState';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 
-const DEPARTMENTS = ['CSE','ECE','EEE','MECH','CIVIL','IT','AIDS','AIML','CSM','CSD'];
-const GENDERS = ['Male','Female','Other'];
-const HOSTEL_OPTIONS = ['Hosteller','Day Scholar'];
+const DEPARTMENTS = ['Cyber Security', 'Business Administration', 'Information Technology', 'Computer Science', 'Electronics and Communication'];
+const GENDERS = ['Male','Female'];
+const PLACEMENT_OPTIONS = ['Placed','Unplaced'];
+const HOSTEL_OPTIONS = ['Hostel','Day Scholar'];
 
 const emptyForm = {
   rollNumber:'', name:'', department:'CSE', gender:'Male', hostelStatus:'Hosteller',
@@ -39,7 +40,7 @@ export default function Students() {
   const [search, setSearch] = useState('');
   const [deptFilter, setDeptFilter] = useState('');
   const [genderFilter, setGenderFilter] = useState('');
-  const [hostelFilter, setHostelFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
   
   // Modals
   const [showAddEdit, setShowAddEdit] = useState(false);
@@ -63,7 +64,7 @@ export default function Students() {
       if (search) params.search = search;
       if (deptFilter) params.department = deptFilter;
       if (genderFilter) params.gender = genderFilter;
-      if (hostelFilter) params.hostelStatus = hostelFilter;
+      if (statusFilter) params.placementStatus = statusFilter.toLowerCase();
       const res = await studentService.getStudents(params);
       setStudents(res.data || res);
       setTotal(res.total || (res.data || res).length);
@@ -73,7 +74,7 @@ export default function Students() {
     } finally {
       setLoading(false);
     }
-  }, [page, search, deptFilter, genderFilter, hostelFilter]);
+  }, [page, search, deptFilter, genderFilter, statusFilter]);
 
   useEffect(() => { fetchStudents(); }, [fetchStudents]);
 
@@ -205,13 +206,13 @@ export default function Students() {
             <option value="">All Genders</option>
             {GENDERS.map(g => <option key={g} value={g}>{g}</option>)}
           </select>
-          <select value={hostelFilter} onChange={e => { setHostelFilter(e.target.value); setPage(1); }}
+          <select value={statusFilter} onChange={e => { setStatusFilter(e.target.value); setPage(1); }}
             className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
             <option value="">All Status</option>
-            {HOSTEL_OPTIONS.map(h => <option key={h} value={h}>{h}</option>)}
+            {PLACEMENT_OPTIONS.map(h => <option key={h} value={h}>{h}</option>)}
           </select>
-          {(search || deptFilter || genderFilter || hostelFilter) && (
-            <button onClick={() => { setSearch(''); setDeptFilter(''); setGenderFilter(''); setHostelFilter(''); setPage(1); }}
+          {(search || deptFilter || genderFilter || statusFilter) && (
+            <button onClick={() => { setSearch(''); setDeptFilter(''); setGenderFilter(''); setStatusFilter(''); setPage(1); }}
               className="text-sm text-indigo-600 hover:text-indigo-800">Clear Filters</button>
           )}
         </div>
@@ -256,7 +257,7 @@ export default function Students() {
                             {s.placementStatus.toUpperCase()}
                           </Badge>
                           {s.placementStatus === 'placed' && s.placedCompany && (
-                            <span className="text-xs text-gray-500 font-medium">{s.placedCompany}</span>
+                            <span className="text-xs text-gray-500 font-medium">{s.placedCompany} {s.ctc ? `(${s.ctc} LPA)` : ''}</span>
                           )}
                         </div>
                       </td>

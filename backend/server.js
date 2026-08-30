@@ -3,11 +3,14 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const connectDB = require('./config/db');
-const { errorHandler } = require('./middleware/errorHandler');
 
 dotenv.config();
-connectDB();
+
+const { initDB } = require('./utils/excelDatabase');
+const { errorHandler } = require('./middleware/errorHandler');
+
+// Initialize our custom Excel database engine
+initDB();
 
 const app = express();
 
@@ -16,9 +19,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir);
-}
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

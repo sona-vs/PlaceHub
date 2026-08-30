@@ -32,12 +32,7 @@ export default function PlacementTeam() {
     try {
       setLoading(true);
       const data = await teamService.getTeam();
-      // If lead, filter to only show themselves or their team
-      if (user?.role === 'lead') {
-        setTeam(data.filter((m: any) => m._id === user._id || (m.user && m.user._id === user._id)));
-      } else {
-        setTeam(data);
-      }
+      setTeam(data);
     } catch (error) {
       toast.error('Failed to fetch team members');
     } finally {

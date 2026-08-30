@@ -13,8 +13,6 @@ export const Sidebar = () => {
     { name: 'Recruiters / ATS', path: '/ats', icon: FileSearch, roles: ['admin', 'lead'] },
     { name: 'Reports', path: '/reports', icon: BarChart3 },
     { name: 'Placement Team', path: '/team', icon: Users },
-    { name: 'Notifications', path: '/notifications', icon: Bell },
-    { name: 'Settings', path: '/settings', icon: Settings },
   ];
 
   const filteredNavItems = navItems.filter(item => !item.roles || (user && item.roles.includes(user.role)));

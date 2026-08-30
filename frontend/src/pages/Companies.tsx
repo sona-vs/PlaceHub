@@ -246,7 +246,7 @@ export default function Companies() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-2xl font-bold text-gray-900">Companies</h1>
-        {(user?.role === 'admin' || user?.role === 'lead' || user?.role === 'member') && (
+        {(user?.role === 'admin' || user?.role === 'lead' || user?.role === 'manager') && (
           <Button onClick={() => handleOpenModal()} size="md">
             <Plus className="w-4 h-4 mr-2" /> Add Company
           </Button>
@@ -368,7 +368,7 @@ export default function Companies() {
                   )}
                 </div>
                 
-                {(user?.role === 'admin' || user?.role === 'lead' || user?.role === 'member') && (
+                {(user?.role === 'admin' || user?.role === 'lead' || user?.role === 'manager') && (
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <Select
                       label=""
@@ -483,6 +483,8 @@ export default function Companies() {
                   <th className="px-4 py-3 text-left font-medium text-gray-500">Roll Number</th>
                   <th className="px-4 py-3 text-left font-medium text-gray-500">Student Name</th>
                   <th className="px-4 py-3 text-left font-medium text-gray-500">Department</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-500">CTC (LPA)</th>
+                  <th className="px-4 py-3 text-left font-medium text-gray-500">Status</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -492,6 +494,8 @@ export default function Companies() {
                     <td className="px-4 py-3 font-medium text-gray-900">{p.student?.rollNumber}</td>
                     <td className="px-4 py-3 text-gray-900">{p.student?.name}</td>
                     <td className="px-4 py-3 text-gray-600"><Badge variant="info">{p.student?.department}</Badge></td>
+                    <td className="px-4 py-3 text-gray-600">{p.ctc ? `${p.ctc} LPA` : '-'}</td>
+                    <td className="px-4 py-3 text-gray-600 capitalize">{p.offerStatus ? p.offerStatus.replace('_', ' ') : p.status}</td>
                   </tr>
                 ))}
               </tbody>

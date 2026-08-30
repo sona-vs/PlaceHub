@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const studentSchema = new mongoose.Schema({
   rollNumber: { type: String, required: true, unique: true, trim: true },
   name: { type: String, required: true, trim: true },
-  department: { type: String, required: true, enum: ['CSE', 'ECE', 'EEE', 'MECH', 'CIVIL', 'IT', 'AIDS', 'AIML', 'CSM', 'CSD'] },
+  department: { type: String, required: true },
   gender: { type: String, enum: ['Male', 'Female', 'Other'] },
-  hostelStatus: { type: String, enum: ['Hosteller', 'Day Scholar'] },
+  hostelStatus: { type: String },
   sslcPercentage: Number,
   hscPercentage: Number,
   ugPercentage: Number,
