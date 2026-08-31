@@ -20,6 +20,7 @@ export const Sidebar = () => {
   return (
     <div className="w-64 h-screen bg-white border-r border-gray-200 fixed left-0 top-0 flex flex-col hidden md:flex">
       <div className="p-6">
+        <img src="/logo.jpg" alt="Rathinam Logo" className="h-8 object-contain mb-3" />
         <h1 className="text-2xl font-bold text-indigo-600">PlaceHub</h1>
         <p className="text-xs text-gray-400 mt-1">Smart Placement</p>
       </div>

@@ -29,8 +29,11 @@ export default function Login() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
         <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
+            <img src="/logo.jpg" alt="Rathinam Logo" className="h-16 object-contain" />
+          </div>
           <h1 className="text-3xl font-bold text-indigo-600 mb-2 flex items-center justify-center gap-2">
-            <span className="text-4xl">✨</span> PlaceHub
+            PlaceHub
           </h1>
           <p className="text-gray-500">Smart Placement Management System</p>
         </div>
